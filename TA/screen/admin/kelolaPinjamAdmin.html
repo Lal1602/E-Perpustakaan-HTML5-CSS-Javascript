@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kelola Peminjaman - Sistem Manajemen Perpustakaan</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: #f8fafc;
+            font-family: system-ui;
+        }
+
+        .user-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            background: #f1f1f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .menu-tabs button {
+            border: none;
+            background: none;
+            padding: 10px 28px;
+            font-weight: 500;
+        }
+
+        .menu-tabs button:hover {
+            background: #e5e7eb;
+            border-radius: 50px;
+        }
+
+        .nav-tab-active {
+            background: #111827 !important;
+            color: white !important;
+            border-radius: 50px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 22px;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .search-card,
+        .list-card {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            padding: 24px;
+        }
+
+        .small-muted {
+            font-size: 13px;
+            color: #6b7280;
+        }
+
+        .badge-status {
+            padding: 6px 12px;
+            border-radius: 14px;
+            font-size: 12px;
+            color: white;
+        }
+
+        .badge-terlambat {
+            background: #d90429;
+        }
+
+        .badge-dikembalikan {
+            background: #e5e7eb;
+            color: #374151;
+        }
+
+        .btn-kembali {
+            background: #0f172a;
+            color: white;
+            border-radius: 12px;
+            padding: 14px 32px;
+            font-size: 16px;
+            border: none;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-kembali:hover {
+            opacity: 0.9;
+        }
+
+        /* Alignment tabel lebih lega */
+        .table> :not(caption)>*>* {
+            padding-top: 18px;
+            padding-bottom: 18px;
+        }
+
+        .table td:last-child,
+        .table th:last-child {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar bg-white py-3 shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center">
+
+            <div class="d-flex align-items-center gap-3">
+                <div
+                    style="width:40px;height:40px;background:#111827;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+                <div>
+                    <h5 class="m-0 fw-semibold">Sistem Manajemen Perpustakaan</h5>
+                    <small class="text-secondary">Panel Administrator</small>
+                </div>
+            </div>
+
+            <div class="d-flex align-items-center gap-4">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="user-icon"><i class="bi bi-person"></i></div>
+                    <div class="d-flex flex-column lh-sm">
+                        <span class="fw-semibold" id="adminName">Siti Nurhaliza</span>
+                        <span class="text-muted" id="adminRole" style="font-size: 12px;">Admin</span>
+                    </div>
+                </div>
+                <a href="../../index.html" class="text-decoration-none text-dark fw-semibold">
+                    <i class="bi bi-box-arrow-right"></i> Keluar
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MENU TABS -->
+    <div class="container mt-4">
+        <div class="menu-tabs bg-white p-2 rounded-pill shadow-sm d-flex justify-content-around">
+            <a href="dashboardAdmin.html" style="text-decoration:none;color:black;">
+                <button>Dashboard</button></a>
+
+            <a href="kelolaBukuAdmin.html" style="text-decoration:none;color:black;">
+                <button>Kelola Buku</button></a>
+
+            <a href="kelolaSiswaAdmin.html" style="text-decoration:none;color:black;">
+                <button>Kelola Siswa</button></a>
+
+            <a href="kelolaPinjamAdmin.html" style="text-decoration:none;color:white;">
+                <button class="nav-tab-active">Kelola Peminjaman</button></a>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <div class="container mt-4">
+
+        <div class="d-flex justify-content-between">
+            <div>
+                <h4 class="fw-bold">Manajemen Peminjaman</h4>
+                <p class="text-secondary">Kelola proses peminjaman dan pengembalian buku</p>
+            </div>
+
+            <button class="btn btn-dark px-4">
+                <i class="bi bi-plus-lg"></i> Tambah Peminjaman
+            </button>
+        </div>
+
+        <!-- STAT -->
+        <div class="row g-3 mt-1">
+
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="small-muted">Sedang Dipinjam</div>
+                    <h3 class="mt-1 text-primary">2</h3>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="small-muted">Terlambat</div>
+                    <h3 class="mt-1 text-danger">1</h3>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="small-muted">Sudah Dikembalikan</div>
+                    <h3 class="mt-1 text-success">1</h3>
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <div class="stat-card">
+                    <div class="small-muted">Total Denda</div>
+                    <h4 class="mt-1 text-danger fw-bold">Rp 5.000</h4>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SEARCH FILTER -->
+        <div class="search-card mt-4">
+            <div class="row g-3 align-items-center">
+                <div class="col-md-9">
+                    <div class="input-group">
+                        <span class="input-group-text bg-white"><i class="bi bi-search text-muted"></i></span>
+                        <input type="search" class="form-control"
+                            placeholder="Cari berdasarkan nama siswa, judul buku, atau NIM...">
+                    </div>
+                </div>
+
+                <div class="col-md-3">
+                    <select class="form-select">
+                        <option selected>Semua Status</option>
+                        <option value="1">Dipinjam</option>
+                        <option value="2">Dikembalikan</option>
+                        <option value="3">Terlambat</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABLE RIWAYAT -->
+        <div class="list-card mt-4">
+            <h6 class="fw-bold">Riwayat Peminjaman (4)</h6>
+            <p class="small-muted">Daftar semua transaksi peminjaman dan pengembalian buku</p>
+
+            <div class="table-responsive mt-3">
+                <table class="table align-middle">
+                    <thead>
+                        <tr>
+                            <th>Siswa</th>
+                            <th>Buku</th>
+                            <th>Tanggal Pinjam</th>
+                            <th>Jatuh Tempo</th>
+                            <th>Tanggal Kembali</th>
+                            <th>Status</th>
+                            <th>Denda</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+
+                        <!-- 1 -->
+                        <tr>
+                            <td><div class="fw-semibold">Ahmad Pratama</div></td>
+                            <td>Pemrograman Web Modern dengan React</td>
+                            <td>15/1/2024</td>
+                            <td class="text-danger fw-semibold">29/1/2024</td>
+                            <td>-</td>
+                            <td><span class="badge-status badge-terlambat">Terlambat</span></td>
+                            <td>-</td>
+                            <td>
+                                <button class="btn-kembali">
+                                    <i class="bi bi-arrow-return-left"></i> Kembalikan
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- 2 -->
+                        <tr>
+                            <td><div class="fw-semibold">Sari Indah</div></td>
+                            <td>Database Design and Management</td>
+                            <td>10/1/2024</td>
+                            <td class="text-danger fw-semibold">24/1/2024</td>
+                            <td class="text-success fw-semibold">22/1/2024</td>
+                            <td><span class="badge-dikembalikan">Dikembalikan</span></td>
+                            <td>-</td>
+                            <td><span class="invisible">btn</span></td>
+                        </tr>
+
+                        <!-- 3 -->
+                        <tr>
+                            <td><div class="fw-semibold">Budi Santoso</div></td>
+                            <td>Machine Learning untuk Pemula</td>
+                            <td>5/1/2024</td>
+                            <td class="text-danger fw-semibold">19/1/2024</td>
+                            <td>-</td>
+                            <td><span class="badge-status badge-terlambat">Terlambat</span></td>
+                            <td class="text-danger fw-semibold">Rp 5.000</td>
+                            <td><span class="invisible">btn</span></td>
+                        </tr>
+
+                        <!-- 4 -->
+                        <tr>
+                            <td><div class="fw-semibold">Ahmad Pratama</div></td>
+                            <td>Algoritma dan Struktur Data</td>
+                            <td>12/1/2024</td>
+                            <td class="text-danger fw-semibold">26/1/2024</td>
+                            <td>-</td>
+                            <td><span class="badge-status badge-terlambat">Terlambat</span></td>
+                            <td>-</td>
+                            <td>
+                                <button class="btn-kembali">
+                                    <i class="bi bi-arrow-return-left"></i> Kembalikan
+                                </button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div style="height:40px;"></div>
+
+</body>
+
+</html>

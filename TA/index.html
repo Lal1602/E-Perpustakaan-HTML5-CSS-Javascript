@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Perpustakaan</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #eef2ff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .login-card {
+            max-width: 380px;
+            width: 100%;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .logo-container {
+            width: 50px;
+            height: 50px;
+            background: #0b0f19;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin: 0 auto 15px;
+        }
+
+        .form-control,
+        .input-group-text {
+            background-color: #f3f4f6;
+            border: none;
+        }
+
+        .btn-dark-custom {
+            background-color: #020617;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        .btn-dark-custom:hover {
+            background-color: #1f2937;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card login-card p-4">
+        <div class="card-body text-center">
+            <div class="logo-container"><i class="bi bi-book"></i></div>
+            <h4 class="fw-bold mb-1">E-Perpustakaan</h4>
+            <p class="text-muted small mb-4">Masuk untuk melanjutkan</p>
+
+            <form id="loginForm">
+                <div class="mb-3 text-start">
+                    <label class="fw-bold small mb-1">Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text ps-3"><i class="bi bi-envelope"></i></span>
+                        <input type="email" class="form-control" id="email" placeholder="nama@email.com" required>
+                    </div>
+                </div>
+                <div class="mb-4 text-start">
+                    <label class="fw-bold small mb-1">Password</label>
+                    <div class="input-group">
+                        <span class="input-group-text ps-3"><i class="bi bi-lock"></i></span>
+                        <input type="password" class="form-control" id="password" placeholder="******" required>
+                    </div>
+                </div>
+                <button type="submit"
+                    class="btn btn-dark-custom d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-box-arrow-in-right"></i>
+                    Masuk
+                </button>
+            </form>
+
+            <div class="mt-4 p-2 bg-light rounded text-start small text-muted">
+                <div class="mb-1"><strong>Admin:</strong> admin@lib.id (pass: admin)</div>
+                <div><strong>Siswa:</strong> ahmad.student@sekolah.ac.id (pass: password)</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+
+            if (email === 'admin@lib.id' && password === 'admin') {
+
+                localStorage.setItem('userName', 'Admin Perpus');
+                localStorage.setItem('userRole', 'Admin');
+
+                window.location.href = './screen/admin/dashboardAdmin.html';
+
+            } else if (email === 'ahmad.student@sekolah.ac.id' && password === 'password') {
+
+                localStorage.setItem('userName', 'Ahmad Siswa');
+                localStorage.setItem('userRole', 'Siswa');
+
+                window.location.href = './screen/user/dashboardUser.html';
+
+            } else {
+                alert('Email atau Password salah! Silakan cek info demo di bawah tombol masuk.');
+            }
+        });
+    </script>
+</body>
+
+</html>
